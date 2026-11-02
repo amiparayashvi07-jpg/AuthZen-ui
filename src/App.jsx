@@ -4,8 +4,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import NewPassword from "./pages/NewPassword";
-import Signup from "./pages/signup";
+import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+
 export default function App() {
   return (
     <>
