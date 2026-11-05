@@ -16,16 +16,19 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(form),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(form),
+        },
+      );
       const result = await response.json();
-            if (!response.ok || result.success === false) throw new Error(result.message || "Login failed");
-      console.log("Success:", result);
-            navigate("/dashboard");
+      if (response.success) {
+        navigate("/dashboard");
+      }
     } catch (err) {
       setError(err.message);
     }
@@ -77,7 +80,9 @@ export default function Login() {
         Forgot password?
       </Link>
 
-      {error && <p className="mb-4 text-center text-sm text-red-400">{error}</p>}
+      {error && (
+        <p className="mb-4 text-center text-sm text-red-400">{error}</p>
+      )}
 
       <button
         type="submit"
