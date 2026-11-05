@@ -36,27 +36,27 @@ export default function Dashboard() {
   }, [todos]);
 
   // Load logged-in user. If not logged in, go to login page
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/get-user`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({}),
-        });
-        const result = await res.json();
-        if (!result.success) {
-          navigate("/login");
-          return;
-        }
-        setUser(result.userData);
-      } catch {
-        navigate("/login");
-      }
-    };
-    loadUser();
-  }, [navigate]);
+  // useEffect(() => {
+  //   const loadUser = async () => {
+  //     try {
+  //       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/get-user`, {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         credentials: "include",
+  //         body: JSON.stringify({}),
+  //       });
+  //       const result = await res.json();
+  //       if (!result.success) {
+  //         navigate("/login");
+  //         return;
+  //       }
+  //       setUser(result.userData);
+  //     } catch {
+  //       navigate("/login");
+  //     }
+  //   };
+  //   loadUser();
+  // }, [navigate]);
 
   const handleLogout = async () => {
     await fetch(`${import.meta.env.VITE_API_URL}/api/auth//logout`, {
