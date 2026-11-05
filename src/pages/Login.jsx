@@ -28,14 +28,17 @@ export default function Login() {
           body: JSON.stringify(form),
         },
       );
+console.log(response);
 
       const result = await response.json();
+console.log(result);
 
       console.log("API Response:", result);
 
       if (response.ok && result.success === true) {
         console.log("Login successful");
-        navigate("/dashboard", { replace: true });
+        window.location.href = "/dashboard";
+        // navigate("/dashboard", { replace: true });
       } else {
         setError(result.message || "Login failed");
       }
