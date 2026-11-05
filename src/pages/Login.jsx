@@ -15,22 +15,33 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/auth/login`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           credentials: "include",
           body: JSON.stringify(form),
         },
       );
+
       const result = await response.json();
-      if (result.success == true) {
-        navigate("/dashboard");
+
+      console.log("API Response:", result);
+
+      if (response.ok && result.success === true) {
+        console.log("Login successful");
+        navigate("/dashboard", { replace: true });
+      } else {
+        setError(result.message || "Login failed");
       }
     } catch (err) {
-      setError(err.message);
+      console.error("Login error:", err);
+      setError("Unable to connect to server");
     }
   };
 
