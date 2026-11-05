@@ -39,7 +39,7 @@ export default function Dashboard() {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/auth/get-user", {
+        const res = await fetch("https://authzen-backend.onrender.com/api/auth/get-user", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -59,7 +59,7 @@ export default function Dashboard() {
   }, [navigate]);
 
   const handleLogout = async () => {
-    await fetch("http://localhost:3000/api/auth/logout", {
+    await fetch("https://authzen-backend.onrender.com/api/auth//logout", {
       method: "POST",
       credentials: "include",
     });
