@@ -9,7 +9,7 @@ export default function ResetPassword() {
   e.preventDefault();
   setError("");
   try {
-    const response = await fetch("https://authzen-backend.onrender.com/api/auth/resetPassword", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/resetPassword`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
