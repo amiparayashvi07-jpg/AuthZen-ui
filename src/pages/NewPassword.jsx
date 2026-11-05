@@ -81,7 +81,7 @@ export default function NewPassword() {
     }
 
     try {
-      const response = await fetch("https://authzen-backend.onrender.com/api/auth/login", {
+      const response = await fetch("https://authzen-backend.onrender.com/api/auth/send-reset-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: code, newPassword: password }),
