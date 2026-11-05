@@ -26,7 +26,7 @@ export default function Login() {
         },
       );
       const result = await response.json();
-      if (result.success) {
+      if (result.success == true) {
         navigate("/dashboard");
       }
     } catch (err) {
