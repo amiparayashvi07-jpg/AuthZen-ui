@@ -5,24 +5,29 @@ export default function ResetPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/send-reset-otp`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    const result = await response.json();
-    if (!response.ok || result.success === false) {
-      throw new Error(result.message || "Something went wrong");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/send-reset-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const result = await response.json();
+      if (!response.ok || result.success === false) {
+        throw new Error(result.message || "Something went wrong");
+      }
+      navigate("/new-password", { state: { email } });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    navigate("/new-password", { state: { email } });
-  } catch (err) {
-    setError(err.message);
-  }
-};
+  };
 
   return (
     <div
@@ -83,9 +88,10 @@ export default function ResetPassword() {
 {error && <p className="mb-4 text-center text-sm text-red-400">{error}</p>}
             <button
               type="submit"
-              className="w-full rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-700 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/50"
+              disabled={loading}
+              className="w-full rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-700 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit
+              {loading ? "Sending OTP..." : "Submit"}
             </button>
 
             <Link
