@@ -28,10 +28,10 @@ export default function Login() {
           body: JSON.stringify(form),
         },
       );
-console.log(response);
+      console.log(response);
 
       const result = await response.json();
-console.log(result);
+      console.log(result);
 
       console.log("API Response:", result);
 
